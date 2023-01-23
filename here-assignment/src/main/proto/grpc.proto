@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+//option java_multiple_files = true;
+//option java_package = "edu.sjsu.cs185c.grpcHello";
+//option java_outer_classname = "Hello";
+
+package edu.sjsu.cs249.iamhere;
+
+service HereService {
+   rpc here(HereRequest) returns (HereResponse) {}
+   rpc hello(HelloRequest) returns (HelloResponse) {}
+}
+
+message HereRequest {
+    string name = 1;
+    int32  id = 2;
+    string code = 3;
+}
+
+message HereResponse {
+    sint32 rc = 1;
+    string message = 2;
+}
+
+message HelloRequest {
+    string name = 1;
+}
+
+message HelloResponse {
+    string message = 1;
+}
