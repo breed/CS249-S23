@@ -1,45 +1,58 @@
 syntax = "proto3";
 
-import "google/protobuf/empty.proto";
-
 // option java_multiple_files = true;
 option java_package = "edu.sjsu.cs249.abd";
 
 service ABDService {
-    rpc name(google.protobuf.Empty) returns (NameResponse);
+    rpc name(NameRequest) returns (NameResponse);
+    rpc enableRequests(EnableRequest) returns (EnableResponse);
     rpc read1(Read1Request) returns (Read1Response);
-    rpc read2(Read2Request) returns (AckResponse);
-    rpc write(WriteRequest) returns (AckResponse);
+    rpc read2(Read2Request) returns (Read2Response);
+    rpc write(WriteRequest) returns (WriteResponse);
 }
 
 package abd;
 
-// the unique name to identify the server ABD is running on
+message NameRequest {
+}
+
 message NameResponse {
+    // name of the student running the server
     string name = 1;
 }
 
+message EnableRequest {
+    bool read1 = 1; // if false, ignore read1 requests
+    bool read2 = 2; // if false, ignore read2 requests
+    bool write = 3; // if false, ignore write requests
+}
+
+message EnableResponse {
+}
+
 message Read1Request {
-    string register = 1;
+    uint64 addr = 1;
 }
 
 message Read1Response {
-    uint64 timestamp = 1;
-    string value = 2;
+    uint64 label = 1;
+    uint64 value = 2;
 }
 
 message Read2Request {
-    string register = 1;
-    uint64 timestamp = 2;
-    string value = 3;
+    uint64 addr = 1;
+    uint64 label = 2;
+    uint64 value = 3;
 }
 
-message AckResponse {
+message Read2Response {
+}
+
+message WriteResponse {
 }
 
 message WriteRequest {
-    string register = 1;
-    uint64 timestampe = 2;
-    string value = 3;
+    uint64 addr = 1;
+    uint64 label = 2;
+    uint64 value = 3;
 }
-
