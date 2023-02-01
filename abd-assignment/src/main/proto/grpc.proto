@@ -9,6 +9,8 @@ service ABDService {
     rpc read1(Read1Request) returns (Read1Response);
     rpc read2(Read2Request) returns (Read2Response);
     rpc write(WriteRequest) returns (WriteResponse);
+    // causes the server to immediately exit
+    rpc exit(ExitRequest) returns (ExitResponse);
 }
 
 package abd;
@@ -56,4 +58,10 @@ message WriteRequest {
     uint64 addr = 1;
     uint64 label = 2;
     uint64 value = 3;
+}
+
+message ExitRequest {
+}
+
+message ExitResponse {
 }
