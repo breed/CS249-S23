@@ -35,8 +35,9 @@ message Read1Request {
 }
 
 message Read1Response {
-    uint64 label = 1;
-    uint64 value = 2;
+    int32 rc = 1; // 0 - success, 1 - addr does not exist
+    uint64 label = 2;
+    uint64 value = 3;
 }
 
 message Read2Request {
