@@ -22,6 +22,7 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.BitSet;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -309,7 +310,7 @@ public class Main {
 
         Read1Response getMaxLabel(long address) {
             debug("== getMaxLabel");
-            return stubs.stream().parallel().map(noe(s -> s.withDeadlineAfter(2, SECONDS).read1(Read1Request.newBuilder().setAddr(address).build()))).filter(Objects::nonNull).max((a, b) -> (int) (a.getLabel() - b.getLabel())).get();
+            return stubs.stream().parallel().map(noe(s -> s.withDeadlineAfter(2, SECONDS).read1(Read1Request.newBuilder().setAddr(address).build()))).filter(Objects::nonNull).max(Comparator.comparingLong(Read1Response::getLabel)).get();
 
         }
 
